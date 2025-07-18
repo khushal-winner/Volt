@@ -14,10 +14,8 @@ export default function Home() {
         Click Here: {count}
       </Button>
 
-      <h1>
-        Hey, I've created this branch just to test and check how many lines I've
-        added
-      </h1>
+      <h2>2nd tes-branch bois</h2>
+      <h2>2nd try for this</h2>
     </div>
   );
 }
