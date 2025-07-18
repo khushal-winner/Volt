@@ -2,13 +2,45 @@
 import Header from "@/components/Header";
 import { MessageContext } from "@/context/MessageContext";
 import { UserDetailContext } from "@/context/UserDetailContext";
+import { api } from "@/convex/_generated/api";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { useConvex, useMutation } from "convex/react";
+import { Loader, Loader2 } from "lucide-react";
 import { ThemeProvider as NextThemeProvider } from "next-themes";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 const Provider = ({ children }) => {
   const [messages, setMessages] = useState();
   const [userDetail, setUserDetail] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+
+  const convex = useConvex();
+
+  useEffect(() => {
+    isAuthenticated();
+  }, []);
+
+  const isAuthenticated = async () => {
+    if (typeof window !== "undefined") {
+      const user = JSON.parse(localStorage.getItem("user"));
+      // fetch from database
+      const result = await convex.query(api.user.GetUser, {
+        email: user?.email,
+      });
+      setUserDetail(result);
+      console.log("userDetail", result);
+      setIsLoading(false);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Loader2 />
+      </div>
+    );
+  }
+
   return (
     <div>
       <GoogleOAuthProvider

@@ -62,10 +62,12 @@ const Hero = () => {
           </h2>
         ))}
       </div>
-      <SignInDialog
-        openDialog={openDialog}
-        closeDialog={() => setOpenDialog(false)}
-      />
+      {!userDetail?.name && (
+        <SignInDialog
+          openDialog={openDialog}
+          closeDialog={() => setOpenDialog(false)}
+        />
+      )}
     </div>
   );
 };
