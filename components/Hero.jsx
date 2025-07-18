@@ -6,24 +6,35 @@ import LookUp from "@/data/LookUp";
 import { ArrowRight, Link, Link2 } from "lucide-react";
 import React, { useContext, useState } from "react";
 import SignInDialog from "./SignInDialog";
-
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { useRouter } from "next/navigation";
 const Hero = () => {
   const [userInput, setUserInput] = useState("");
   const { messages, setMessages } = useContext(MessageContext);
   const [openDialog, setOpenDialog] = useState(false);
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
+  const CreateWorkspace = useMutation(api.workspace.CreateWorkspace);
+  const router = useRouter();
 
-  const onGenerate = (input) => {
+  const onGenerate = async (input) => {
     if (!userDetail?.name) {
       setOpenDialog(true);
       return;
     }
-    setMessages({
+    const msg = {
       role: "user",
       content: input,
+    };
+    setMessages(msg);
+
+    const workspaceId = await CreateWorkspace({
+      messages: [msg],
+      user: userDetail?._id,
     });
     setUserInput("");
-    console.log(messages);
+    console.log("Workspace Created:", workspaceId);
+    router.push(`/workspace/${workspaceId}`);
   };
 
   return (
