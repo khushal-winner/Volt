@@ -24,9 +24,8 @@ const ChatView = () => {
     const workspaceData = await convex.query(api.workspace.GetWorkspace, {
       workspaceId: id,
     });
-    setMessages(workspaceData?.messages);
-
     console.log(workspaceData?.messages, "Workspace Messages");
+    setMessages(workspaceData?.messages);
   };
 
   return (
