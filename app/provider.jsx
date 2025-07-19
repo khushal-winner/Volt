@@ -33,14 +33,6 @@ const Provider = ({ children }) => {
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <Loader2 />
-      </div>
-    );
-  }
-
   return (
     <div>
       <GoogleOAuthProvider

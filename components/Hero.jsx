@@ -52,6 +52,7 @@ const Hero = () => {
             className="outline-none bg-transparent w-full h-32 max-h-56 resize-none"
             placeholder={LookUp.INPUT_PLACEHOLDER}
           ></textarea>
+
           {userInput && (
             <ArrowRight
               onClick={() => onGenerate(userInput)}
