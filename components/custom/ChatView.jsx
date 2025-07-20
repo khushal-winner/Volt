@@ -13,8 +13,10 @@ import { useParams } from "next/navigation";
 import React, { use, useContext, useEffect, useState } from "react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { useSidebar } from "../ui/sidebar";
 
 const ChatView = () => {
+  const { toggleSidebar } = useSidebar();
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
   const { messages, setMessages } = useContext(MessageContext);
   const [userInput, setUserInput] = useState("");
@@ -89,46 +91,58 @@ const ChatView = () => {
         )}
       </div>
 
-      <div
-        className="p-5 border rounded-xl max-w-2xl w-full mt-3"
-        style={{ backgroundColor: Colors.CHAT_BACKGROUND }}
-      >
+      <div className="flex gap-2 items-end">
+        {userDetail?.name && (
+          <Image
+            onClick={toggleSidebar}
+            height={50}
+            width={50}
+            src={userDetail?.picture}
+            alt="User Avatar"
+            className="rounded-full object-cover"
+          />
+        )}
         <div
-          className="flex gap-3"
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && !e.shiftKey) {
-              e.preventDefault();
-              setMessages((prev) => [
-                ...prev,
-                { role: "user", content: userInput },
-              ]);
-
-              setUserInput("");
-            }
-          }}
+          className="p-5 border rounded-xl max-w-2xl w-full mt-3"
+          style={{ backgroundColor: Colors.CHAT_BACKGROUND }}
         >
-          <textarea
-            value={userInput}
-            onChange={(e) => setUserInput(e.target.value)}
-            className="outline-none bg-transparent w-full h-32 max-h-56 resize-none"
-            placeholder={Lookup.INPUT_PLACEHOLDER}
-          ></textarea>
-
-          {userInput && (
-            <ArrowRight
-              onClick={() => {
+          <div
+            className="flex gap-3"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
                 setMessages((prev) => [
                   ...prev,
                   { role: "user", content: userInput },
                 ]);
 
                 setUserInput("");
-              }}
-              className="bg-blue-500 p-2 h-8 w-8 rounded-md cursor-pointer"
-            />
-          )}
+              }
+            }}
+          >
+            <textarea
+              value={userInput}
+              onChange={(e) => setUserInput(e.target.value)}
+              className="outline-none bg-transparent w-full h-32 max-h-56 resize-none"
+              placeholder={Lookup.INPUT_PLACEHOLDER}
+            ></textarea>
+
+            {userInput && (
+              <ArrowRight
+                onClick={() => {
+                  setMessages((prev) => [
+                    ...prev,
+                    { role: "user", content: userInput },
+                  ]);
+
+                  setUserInput("");
+                }}
+                className="bg-blue-500 p-2 h-8 w-8 rounded-md cursor-pointer"
+              />
+            )}
+          </div>
+          <Link className="w-4 h-4" />
         </div>
-        <Link className="w-4 h-4" />
       </div>
     </div>
   );

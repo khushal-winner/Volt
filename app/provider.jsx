@@ -1,5 +1,7 @@
 "use client";
+import AppSideBar from "@/components/custom/AppSideBar";
 import Header from "@/components/Header";
+import { Sidebar, SidebarProvider } from "@/components/ui/sidebar";
 import { MessageContext } from "@/context/MessageContext";
 import { UserDetailContext } from "@/context/UserDetailContext";
 import { api } from "@/convex/_generated/api";
@@ -47,7 +49,10 @@ const Provider = ({ children }) => {
               disableTransitionOnChange
             >
               <Header />
-              {children}
+              <SidebarProvider defaultOpen={false}>
+                <AppSideBar />
+                {children}
+              </SidebarProvider>
             </NextThemeProvider>
           </MessageContext.Provider>
         </UserDetailContext.Provider>
