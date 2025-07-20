@@ -74,6 +74,11 @@ const CodeView = () => {
     const token = userToken - usedToken;
     console.log("token", token);
 
+    setUserDetail({
+      ...userDetail,
+      token: token,
+    });
+
     await UpdateToken({
       token: token,
       userId: userDetail?._id,
