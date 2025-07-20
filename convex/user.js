@@ -22,6 +22,7 @@ export const CreateUser = mutation({
         email: args.email,
         picture: args.picture,
         uid: args.uid,
+        token: 500000,
       });
       console.log("User Created:", result);
       return result;
@@ -44,5 +45,18 @@ export const GetUser = query({
     if (user?.length > 0) {
       return user[0];
     }
+  },
+});
+
+export const UpdateToken = mutation({
+  args: {
+    token: v.number(),
+    userId: v.id("users"),
+  },
+  handler: async (ctx, args) => {
+    const result = await ctx.db.patch(args.userId, {
+      token: args.token,
+    });
+    return result;
   },
 });
