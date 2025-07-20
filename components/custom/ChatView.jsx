@@ -14,7 +14,15 @@ import React, { use, useContext, useEffect, useState } from "react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { useSidebar } from "../ui/sidebar";
+import { CountTokensResponse } from "@google/genai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
+export const countToken = (inputText) => {
+  return inputText
+    .trim()
+    .split(/\s+/)
+    .filter((word) => word).length;
+};
 const ChatView = () => {
   const { toggleSidebar } = useSidebar();
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
@@ -24,6 +32,7 @@ const ChatView = () => {
   const { id } = useParams();
   const convex = useConvex();
   const UpdateMessages = useMutation(api.workspace.UpdateMessages);
+  const UpdateToken = useMutation(api.user.UpdateToken);
 
   useEffect(() => {
     id && GetWorkspaceData();
@@ -56,6 +65,20 @@ const ChatView = () => {
     await UpdateMessages({
       workspaceId: id,
       messages: [...messages, aiResp],
+    });
+
+    const userToken = Number(userDetail?.token);
+    console.log("userToken", userToken);
+
+    const usedToken = Number(countToken(JSON.stringify(aiResp)));
+    console.log("usedToken", usedToken);
+
+    const token = userToken - usedToken;
+    console.log("token", token);
+
+    await UpdateToken({
+      token: token,
+      userId: userDetail?._id,
     });
     setIsLoading(false);
   };

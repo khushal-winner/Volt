@@ -18,6 +18,8 @@ import { useConvex, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Loader2Icon } from "lucide-react";
 import { useParams } from "next/navigation";
+import { UserDetailContext } from "@/context/UserDetailContext";
+import { countToken } from "./ChatView";
 
 const CodeView = () => {
   const [files, setFiles] = useState(Lookup.DEFAULT_FILE);
@@ -27,6 +29,8 @@ const CodeView = () => {
   const convex = useConvex();
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
+  const { userDetail, setUserDetail } = useContext(UserDetailContext);
+  const UpdateToken = useMutation(api.user.UpdateToken);
 
   useEffect(() => {
     if (messages?.length > 0) {
@@ -60,6 +64,20 @@ const CodeView = () => {
     console.log("AI Code Response:", result.data.result);
     console.log("checking aiResp");
     const aiResp = result.data.result;
+
+    const userToken = Number(userDetail?.token);
+    console.log("userToken", userToken);
+
+    const usedToken = Number(countToken(JSON.stringify(aiResp)));
+    console.log("usedToken", usedToken);
+
+    const token = userToken - usedToken;
+    console.log("token", token);
+
+    await UpdateToken({
+      token: token,
+      userId: userDetail?._id,
+    });
     setLoading(false);
 
     console.log("aiResp", aiResp);
