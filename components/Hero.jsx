@@ -6,16 +6,18 @@ import LookUp from "@/data/LookUp";
 import { ArrowRight, Link, Link2 } from "lucide-react";
 import React, { useContext, useState } from "react";
 import SignInDialog from "./SignInDialog";
-import { useMutation } from "convex/react";
+import { useConvex, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useRouter } from "next/navigation";
+import { OpenDialogContext } from "@/context/OpenDialogContext";
 const Hero = () => {
   const [userInput, setUserInput] = useState("");
   const { messages, setMessages } = useContext(MessageContext);
-  const [openDialog, setOpenDialog] = useState(false);
+  const { openDialog, setOpenDialog } = useContext(OpenDialogContext);
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
   const CreateWorkspace = useMutation(api.workspace.CreateWorkspace);
   const router = useRouter();
+  const convex = useConvex();
 
   const onGenerate = async (input) => {
     if (!userDetail?.name) {
@@ -31,6 +33,14 @@ const Hero = () => {
       content: input,
     };
     setMessages(msg);
+
+    // After saving to Convex and fetching DB user
+    const dbUser = await convex.query(api.user.GetUser, {
+      email: userDetail?.email,
+    });
+
+    localStorage.setItem("user", JSON.stringify(dbUser));
+    setUserDetail(dbUser); // ✅ This user contains _id
 
     const workspaceId = await CreateWorkspace({
       messages: [msg],

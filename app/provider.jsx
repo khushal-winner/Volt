@@ -4,6 +4,7 @@ import AppSideBar from "@/components/custom/AppSideBar";
 import Header from "@/components/Header";
 import { Sidebar, SidebarProvider } from "@/components/ui/sidebar";
 import { MessageContext } from "@/context/MessageContext";
+import { OpenDialogContext } from "@/context/OpenDialogContext";
 import { UserDetailContext } from "@/context/UserDetailContext";
 import { api } from "@/convex/_generated/api";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
@@ -19,6 +20,8 @@ const Provider = ({ children }) => {
   const [userDetail, setUserDetail] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [action, setAction] = useState();
+  const [openDialog, setOpenDialog] = useState(false);
+
   const router = useRouter();
   const convex = useConvex();
 
@@ -52,23 +55,25 @@ const Provider = ({ children }) => {
         <PayPalScriptProvider>
           <ActionContext.Provider value={{ action, setAction }}>
             <UserDetailContext.Provider value={{ userDetail, setUserDetail }}>
-              <MessageContext.Provider value={{ messages, setMessages }}>
-                <NextThemeProvider
-                  attribute="class"
-                  defaultTheme="system"
-                  enableSystem
-                  disableTransitionOnChange
-                >
-                  <SidebarProvider
-                    defaultOpen={false}
-                    className="flex flex-col "
+              <OpenDialogContext.Provider value={{ openDialog, setOpenDialog }}>
+                <MessageContext.Provider value={{ messages, setMessages }}>
+                  <NextThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange
                   >
-                    <Header />
-                    <AppSideBar />
-                    {children}
-                  </SidebarProvider>
-                </NextThemeProvider>
-              </MessageContext.Provider>
+                    <SidebarProvider
+                      defaultOpen={false}
+                      className="flex flex-col relative z-10"
+                    >
+                      <Header />
+                      <AppSideBar />
+                      {children}
+                    </SidebarProvider>
+                  </NextThemeProvider>
+                </MessageContext.Provider>
+              </OpenDialogContext.Provider>
             </UserDetailContext.Provider>
           </ActionContext.Provider>
         </PayPalScriptProvider>

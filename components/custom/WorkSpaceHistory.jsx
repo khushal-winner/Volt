@@ -32,8 +32,6 @@ const WorkSpaceHistory = () => {
 
   return (
     <div className=" flex flex-col justify-center items-centerfont-medium text-lg mx-auto scrollbar-hide">
-      {console.log("workspaceList 1", workspaceList)}
-
       {loading ? (
         <div className="p-4 text-gray-500">Loading...</div> // <-- placeholder while loading
       ) : Array.isArray(workspaceList) && workspaceList.length > 0 ? (

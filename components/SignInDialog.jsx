@@ -28,7 +28,7 @@ const SignInDialog = ({ openDialog, closeDialog }) => {
         { headers: { Authorization: "Bearer " + tokenResponse?.access_token } }
       );
 
-      console.log(userInfo);
+      console.log("userInfo", userInfo);
       setUserDetail(userInfo?.data);
       const user = userInfo?.data;
       // save it into the DB
