@@ -20,6 +20,8 @@ import { Loader2Icon } from "lucide-react";
 import { useParams } from "next/navigation";
 import { UserDetailContext } from "@/context/UserDetailContext";
 import { countToken } from "./ChatView";
+import SandPackPreviewClient from "./SandPackPreviewClient";
+import { ActionContext } from "./ActionContext";
 
 const CodeView = () => {
   const [files, setFiles] = useState(Lookup.DEFAULT_FILE);
@@ -31,6 +33,7 @@ const CodeView = () => {
   const { id } = useParams();
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
   const UpdateToken = useMutation(api.user.UpdateToken);
+  const { action, setAction } = useContext(ActionContext);
 
   useEffect(() => {
     if (messages?.length > 0) {
@@ -40,6 +43,10 @@ const CodeView = () => {
       }
     }
   }, [messages]);
+
+  useEffect(() => {
+    setActiveTab("preview");
+  }, [action]);
 
   useEffect(() => {
     files && GetFiles();
@@ -100,7 +107,7 @@ const CodeView = () => {
     console.log("Updated Files:", files);
   };
   return (
-    <div className="relative h-[85vh] ">
+    <div className="relative h-full ">
       <div className="bg-[#181818] w-full p-1 border rounded-lg">
         <div className="flex items-center flex-wrap shrink-0 bg-black w-[140px] rounded-full justify-center gap-3 p-1 mb-1">
           <h2
@@ -130,14 +137,11 @@ const CodeView = () => {
             <SandpackLayout>
               {activeTab === "code" ? (
                 <>
-                  <SandpackFileExplorer style={{ height: "78vh" }} />
-                  <SandpackCodeEditor style={{ height: "78vh" }} />
+                  <SandpackFileExplorer className="min-h-[calc(100vh-164px)]" />
+                  <SandpackCodeEditor className="min-h-[calc(100vh-164px)]" />
                 </>
               ) : (
-                <SandpackPreview
-                  style={{ height: "78vh" }}
-                  showNavigator={true}
-                />
+                <SandPackPreviewClient />
               )}
             </SandpackLayout>
           </SandpackProvider>

@@ -93,7 +93,7 @@ const ChatView = () => {
     setIsLoading(false);
   };
   return (
-    <div className="relative h-[85vh] flex flex-col ">
+    <div className="flex flex-col h-full ">
       <div className="flex-1 overflow-y-scroll scrollbar-hide">
         {Array.isArray(messages) &&
           messages.length > 0 &&
@@ -124,7 +124,7 @@ const ChatView = () => {
         )}
       </div>
 
-      <div className="flex gap-2 items-end">
+      <div className="flex  gap-2 items-end">
         {userDetail?.name && (
           <Image
             onClick={toggleSidebar}
@@ -136,7 +136,7 @@ const ChatView = () => {
           />
         )}
         <div
-          className="p-5 border rounded-xl max-w-2xl w-full mt-3"
+          className="p-4 border rounded-xl max-w-2xl w-full mt-3"
           style={{ backgroundColor: Colors.CHAT_BACKGROUND }}
         >
           <div
