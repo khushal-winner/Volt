@@ -57,7 +57,7 @@ const Provider = ({ children }) => {
                 enableSystem
                 disableTransitionOnChange
               >
-                <SidebarProvider defaultOpen={false} className="flex flex-col">
+                <SidebarProvider defaultOpen={false} className="flex flex-col ">
                   <Header />
                   <AppSideBar />
                   {children}

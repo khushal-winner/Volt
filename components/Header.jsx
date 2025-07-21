@@ -8,12 +8,14 @@ import { UserDetailContext } from "@/context/UserDetailContext";
 import { Download, Rocket, RocketIcon } from "lucide-react";
 import { useSidebar } from "./ui/sidebar";
 import { ActionContext } from "./custom/ActionContext";
+import { useParams } from "next/navigation";
 // import { useSidebar } from "./ui/sidebar";
 
 const Header = () => {
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
   const { toggleSidebar } = useSidebar();
   const { action, setAction } = useContext(ActionContext);
+  const params = useParams();
 
   const onActionBtn = (action) => {
     setAction({
@@ -23,7 +25,7 @@ const Header = () => {
   };
 
   return (
-    <div className="flex justify-between items-center p-4">
+    <div className="flex justify-between items-center p-4 m-4 h-[30px]">
       <Link href={"/"}>
         <Image src={"/logo.png"} alt="Logo" width={40} height={40} />
       </Link>
@@ -40,7 +42,7 @@ const Header = () => {
             </Button>
           </>
         )}
-        {userDetail?.name && (
+        {params?.id && (
           <>
             <Button
               onClick={() => onActionBtn("export")}
@@ -59,15 +61,17 @@ const Header = () => {
               <RocketIcon />
               Deploy
             </Button>
-            <Image
-              onClick={toggleSidebar}
-              src={userDetail?.picture}
-              width={40}
-              height={40}
-              className="rounded-full"
-              alt="User"
-            />
           </>
+        )}
+        {userDetail?.name && (
+          <Image
+            onClick={toggleSidebar}
+            src={userDetail?.picture}
+            width={40}
+            height={40}
+            className="rounded-full"
+            alt="User"
+          />
         )}
       </div>
     </div>

@@ -27,10 +27,10 @@ const SandPackPreviewClient = () => {
     }
   };
   return (
-    <div className="w-full">
+    <div className="w-full h-full">
       <SandpackPreview
+        className="min-h-[calc(100vh-164px)]"
         ref={previewRef}
-        style={{ height: "78vh" }}
         showNavigator={true}
       />
     </div>
