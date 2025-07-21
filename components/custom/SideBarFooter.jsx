@@ -23,15 +23,16 @@ const options = [
 
 const AppSideBarFooter = () => {
   return (
-    <div className="p-5 mb-10 w-full">
+    <div className=" pr-4 mb-10 w-full">
       {options.map((option, idx) => (
         <Button
           key={idx}
           variant={"ghost"}
-          className="flex gap-2 w-full justify-start m-2"
+          className="flex gap-3 w-full justify-start m-2"
         >
-          <option.icon />
-          {option.name}
+          <option.icon className="size-5 flex items-center" />
+
+          <h2 className="text-lg flex items-center">{option.name}</h2>
         </Button>
       ))}
     </div>

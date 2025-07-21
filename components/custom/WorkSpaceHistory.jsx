@@ -33,16 +33,14 @@ const WorkSpaceHistory = () => {
   return (
     <div className=" flex flex-col justify-center items-centerfont-medium text-lg mx-auto scrollbar-hide">
       {console.log("workspaceList 1", workspaceList)}
-      <h2 className="flex mx-auto w-full justify-center items-center gap-2">
-        Your Chats
-      </h2>
+
       {loading ? (
         <div className="p-4 text-gray-500">Loading...</div> // <-- placeholder while loading
       ) : Array.isArray(workspaceList) && workspaceList.length > 0 ? (
         workspaceList.map((workspace, idx) => (
           <div
             key={idx}
-            className="flex p-2 border rounded-lg m-2 mx-auto  w-[95%] h-[8vh] hover:bg-slate-800 justify-center items-center"
+            className="flex p-2 pb-4 border rounded-lg m-2 mx-auto  w-[95%] h-[6vh] hover:bg-slate-800 justify-center items-center"
           >
             <Link href={`/workspace/${workspace?._id}`}>
               <h2 className="flex justify-center mx-auto items-center text-center text-sm text-gray-500 mt-2 font-light cursor-pointer hover:text-white ">

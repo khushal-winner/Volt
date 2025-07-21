@@ -102,7 +102,7 @@ const CodeView = () => {
     console.log("Updated Files:", files);
   };
   return (
-    <div className="relative h-[85vh] ">
+    <div className="relative h-full ">
       <div className="bg-[#181818] w-full p-1 border rounded-lg">
         <div className="flex items-center flex-wrap shrink-0 bg-black w-[140px] rounded-full justify-center gap-3 p-1 mb-1">
           <h2
@@ -132,8 +132,8 @@ const CodeView = () => {
             <SandpackLayout>
               {activeTab === "code" ? (
                 <>
-                  <SandpackFileExplorer style={{ height: "78vh" }} />
-                  <SandpackCodeEditor style={{ height: "78vh" }} />
+                  <SandpackFileExplorer className="min-h-[calc(100vh-164px)]" />
+                  <SandpackCodeEditor className="min-h-[calc(100vh-164px)]" />
                 </>
               ) : (
                 <SandPackPreviewClient />
