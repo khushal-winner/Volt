@@ -19,8 +19,8 @@ const AppSideBar = () => {
       <SidebarHeader>
         <Image
           className="m-2"
-          height={45}
-          width={45}
+          height={40}
+          width={40}
           src="/logo.png"
           alt="Logo"
         />

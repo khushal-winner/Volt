@@ -20,6 +20,8 @@ import { Loader2Icon } from "lucide-react";
 import { useParams } from "next/navigation";
 import { UserDetailContext } from "@/context/UserDetailContext";
 import { countToken } from "./ChatView";
+import SandPackPreviewClient from "./SandPackPreviewClient";
+import { ActionContext } from "./ActionContext";
 
 const CodeView = () => {
   const [files, setFiles] = useState(Lookup.DEFAULT_FILE);
@@ -31,6 +33,7 @@ const CodeView = () => {
   const { id } = useParams();
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
   const UpdateToken = useMutation(api.user.UpdateToken);
+  const { action, setAction } = useContext(ActionContext);
 
   useEffect(() => {
     if (messages?.length > 0) {
@@ -40,6 +43,10 @@ const CodeView = () => {
       }
     }
   }, [messages]);
+
+  useEffect(() => {
+    setActiveTab("preview");
+  }, [action]);
 
   useEffect(() => {
     files && GetFiles();
@@ -129,10 +136,7 @@ const CodeView = () => {
                   <SandpackCodeEditor style={{ height: "78vh" }} />
                 </>
               ) : (
-                <SandpackPreview
-                  style={{ height: "78vh" }}
-                  showNavigator={true}
-                />
+                <SandPackPreviewClient />
               )}
             </SandpackLayout>
           </SandpackProvider>
