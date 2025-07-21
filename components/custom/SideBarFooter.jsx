@@ -1,6 +1,9 @@
+"use client";
 import { HelpCircle, LogOut, Settings, Wallet } from "lucide-react";
 import React from "react";
 import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
+import { useSidebar } from "../ui/sidebar";
 
 const options = [
   {
@@ -14,6 +17,7 @@ const options = [
   {
     name: "My Subscription",
     icon: Wallet,
+    path: "/pricing",
   },
   {
     name: "Sign Out",
@@ -22,11 +26,22 @@ const options = [
 ];
 
 const AppSideBarFooter = () => {
+  const { toggleSidebar } = useSidebar();
+  const router = useRouter();
+
+  const onOptionClick = (option) => {
+    if (option.path) {
+      router.push(option.path);
+    }
+  };
   return (
     <div className=" pr-4 mb-10 w-full">
       {options.map((option, idx) => (
         <Button
-          key={idx}
+          onClick={() => {
+            onOptionClick(option);
+            toggleSidebar();
+          }}
           variant={"ghost"}
           className="flex gap-3 w-full justify-start m-2"
         >
