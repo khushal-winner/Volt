@@ -6,6 +6,7 @@ import { Sidebar, SidebarProvider } from "@/components/ui/sidebar";
 import { MessageContext } from "@/context/MessageContext";
 import { UserDetailContext } from "@/context/UserDetailContext";
 import { api } from "@/convex/_generated/api";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { useConvex, useMutation } from "convex/react";
 import { Loader, Loader2 } from "lucide-react";
@@ -48,6 +49,7 @@ const Provider = ({ children }) => {
       <GoogleOAuthProvider
         clientId={process.env.NEXT_PUBLIC_GOOGLE_AUTH_CLIENT_ID_KEY}
       >
+        <PayPalScriptProvider>
         <ActionContext.Provider value={{ action, setAction }}>
           <UserDetailContext.Provider value={{ userDetail, setUserDetail }}>
             <MessageContext.Provider value={{ messages, setMessages }}>
@@ -57,6 +59,8 @@ const Provider = ({ children }) => {
                 enableSystem
                 disableTransitionOnChange
               >
+                <Header />
+                <SidebarProvider defaultOpen={false}>
                 <SidebarProvider defaultOpen={false} className="flex flex-col ">
                   <Header />
                   <AppSideBar />
@@ -65,6 +69,7 @@ const Provider = ({ children }) => {
               </NextThemeProvider>
             </MessageContext.Provider>
           </UserDetailContext.Provider>
+        </PayPalScriptProvider>
         </ActionContext.Provider>
       </GoogleOAuthProvider>
     </div>

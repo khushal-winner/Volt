@@ -22,6 +22,10 @@ const Hero = () => {
       setOpenDialog(true);
       return;
     }
+    if (userDetail?.token < 10) {
+      toast("You don't have enough token");
+      return;
+    }
     const msg = {
       role: "user",
       content: input,
