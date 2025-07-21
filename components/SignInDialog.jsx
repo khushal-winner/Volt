@@ -6,7 +6,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import LookUp from "@/data/LookUp";
+import Lookup from "@/data/Lookup";
 
 import React, { use, useContext } from "react";
 import { Button } from "./ui/button";
@@ -54,16 +54,16 @@ const SignInDialog = ({ openDialog, closeDialog }) => {
           <DialogDescription>
             <div className="flex flex-col items-center justify-center gap-3 p-2">
               <h2 className="font-bold text-2xl text-center mb-2 text-white">
-                {LookUp.SIGNIN_HEADING}
+                {Lookup.SIGNIN_HEADING}
               </h2>
-              <p className="text-center">{LookUp.SIGNIN_SUBHEADING}</p>
+              <p className="text-center">{Lookup.SIGNIN_SUBHEADING}</p>
               <Button
                 onClick={googleLogin}
                 className="bg-blue-500 text-white flex mt-4 mx-auto"
               >
                 Sign In With Google
               </Button>
-              <p className="mt-4 text-center">{LookUp.SIGNIn_AGREEMENT_TEXT}</p>
+              <p className="mt-4 text-center">{Lookup.SIGNIn_AGREEMENT_TEXT}</p>
             </div>
           </DialogDescription>
         </DialogHeader>
