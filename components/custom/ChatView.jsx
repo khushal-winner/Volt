@@ -16,7 +16,6 @@ import remarkGfm from "remark-gfm";
 import { useSidebar } from "../ui/sidebar";
 import { CountTokensResponse } from "@google/genai";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { toast } from "sonner";
 
 export const countToken = (inputText) => {
   return inputText
@@ -57,10 +56,6 @@ const ChatView = () => {
   };
 
   const GetAiResponse = async () => {
-    if (userDetail?.token < 10) {
-      toast("You don't have enough token");
-      return;
-    }
     setIsLoading(true);
     const PROMPT = JSON.stringify(messages) + Prompt.CHAT_PROMPT;
     const result = await axios.post("/api/ai-chat", { prompt: PROMPT });
@@ -80,11 +75,6 @@ const ChatView = () => {
 
     const token = userToken - usedToken;
     console.log("token", token);
-
-    setUserDetail({
-      ...userDetail,
-      token: token,
-    });
 
     await UpdateToken({
       token: token,

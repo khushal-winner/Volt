@@ -12,7 +12,6 @@
     "@codesandbox/sandpack-react": "^2.20.0",
     "@google/genai": "^1.10.0",
     "@google/generative-ai": "^0.24.1",
-    "@paypal/react-paypal-js": "^8.8.3",
     "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-separator": "^1.1.7",
     "@radix-ui/react-slot": "^1.2.3",
@@ -30,7 +29,6 @@
     "react-dom": "19.1.0",
     "react-markdown": "^10.1.0",
     "remark-gfm": "^4.0.1",
-    "sonner": "^2.0.6",
     "tailwind-merge": "^3.3.1",
     "tailwind-scrollbar-hide": "^4.0.0",
     "uuid4": "^2.0.3"
