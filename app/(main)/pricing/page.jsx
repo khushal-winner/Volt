@@ -9,7 +9,7 @@ import React, { useContext } from "react";
 const page = () => {
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
   return (
-    <div className="w-full h-screen flex flex-col mt-20  items-center gap-4">
+    <div className="w-full min-h-[calc(100vh-176px)] flex flex-col mt-20  items-center gap-4">
       <h2 className="font-bold text-5xl">Pricing</h2>
       <p className="text-gray-500 max-w-xl text-center">
         {Lookup?.PRICING_DESC}
