@@ -67,6 +67,10 @@ const AppSideBarFooter = () => {
             <h2 className="text-lg flex items-center">{option.name}</h2>
           </Button>
         ))}
+
+        <div className="flex  mt-4 text-gray-500 mx-auto">
+          Made with ❤️ by Khushal
+        </div>
       </div>
     </>
   );
