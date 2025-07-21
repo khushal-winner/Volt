@@ -34,9 +34,11 @@ const PricingModel = () => {
             Upgrade to {item.name}
           </Button> */}
           <PayPalButtons
+            className="flex relative z-[-200] "
             disabled={!userDetail?.name}
             style={{ layout: "horizontal" }}
             onApprove={() => onPaymentSucess(item)}
+            onCancel={() => console.log("payment canceled")}
             createOrder={(data, actions) => {
               return actions.order.create({
                 purchase_units: [

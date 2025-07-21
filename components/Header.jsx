@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useContext } from "react";
+import React, { use, useContext } from "react";
 import { Button } from "./ui/button";
 import Colors from "@/data/Colors";
 import Link from "next/link";
@@ -9,19 +9,38 @@ import { Download, Rocket, RocketIcon } from "lucide-react";
 import { useSidebar } from "./ui/sidebar";
 import { ActionContext } from "./custom/ActionContext";
 import { useParams } from "next/navigation";
+import { OpenDialogContext } from "@/context/OpenDialogContext";
+import { useConvex } from "convex/react";
 // import { useSidebar } from "./ui/sidebar";
 
 const Header = () => {
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
   const { toggleSidebar } = useSidebar();
   const { action, setAction } = useContext(ActionContext);
+  const { openDialog, setOpenDialog } = useContext(OpenDialogContext);
   const params = useParams();
+  const convex = useConvex();
 
   const onActionBtn = (action) => {
     setAction({
       actionType: action,
       timestamp: Date.now(),
     });
+  };
+
+  const SignIn = async () => {
+    if (!userDetail?.name) {
+      setOpenDialog(true);
+      return;
+    }
+
+    const user = await convex.query(api.user.GetUser, {
+      email: userDetail?.email,
+    });
+
+    console.log("user aagya", user);
+    setUserDetail(user);
+    console.log("UserDetail:", user._id);
   };
 
   return (
@@ -33,8 +52,11 @@ const Header = () => {
       <div className="flex gap-3 items-center">
         {!userDetail?.name && (
           <>
-            <Button variant={"ghost"}>Sign In</Button>
+            <Button onClick={SignIn} variant={"ghost"}>
+              Sign In
+            </Button>
             <Button
+              onClick={SignIn}
               className="text-white"
               style={{ backgroundColor: Colors.BLUE }}
             >

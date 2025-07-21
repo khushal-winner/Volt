@@ -9,7 +9,11 @@ import {
 } from "@/components/ui/sidebar";
 import Image from "next/image";
 import { Button } from "../ui/button";
-import { MessageCircleCode } from "lucide-react";
+import {
+  ArrowLeftFromLine,
+  MessageCircleCode,
+  PanelRightOpen,
+} from "lucide-react";
 import WorkSpaceHistory from "./WorkSpaceHistory";
 import SideBarFooter from "./SideBarFooter";
 import AppSideBarFooter from "./SideBarFooter";
@@ -21,13 +25,23 @@ const AppSideBar = () => {
   return (
     <Sidebar className="scrollbar-hide ">
       <SidebarHeader>
-        <Image
-          className="m-2"
-          height={40}
-          width={40}
-          src="/logo.png"
-          alt="Logo"
-        />
+        <div className="flex justify-between p-2">
+          <Image
+            className="m-2"
+            height={40}
+            width={40}
+            src="/logo.png"
+            alt="Logo"
+          />
+          <div className="flex w-full justify-end items-center ">
+            <PanelRightOpen
+              onClick={() => {
+                toggleSidebar();
+              }}
+              className="cursor-pointer "
+            />
+          </div>
+        </div>
         <Button
           onClick={() => {
             router.push("/");
