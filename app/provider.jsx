@@ -50,27 +50,28 @@ const Provider = ({ children }) => {
         clientId={process.env.NEXT_PUBLIC_GOOGLE_AUTH_CLIENT_ID_KEY}
       >
         <PayPalScriptProvider>
-        <ActionContext.Provider value={{ action, setAction }}>
-          <UserDetailContext.Provider value={{ userDetail, setUserDetail }}>
-            <MessageContext.Provider value={{ messages, setMessages }}>
-              <NextThemeProvider
-                attribute="class"
-                defaultTheme="system"
-                enableSystem
-                disableTransitionOnChange
-              >
-                <Header />
-                <SidebarProvider defaultOpen={false}>
-                <SidebarProvider defaultOpen={false} className="flex flex-col ">
-                  <Header />
-                  <AppSideBar />
-                  {children}
-                </SidebarProvider>
-              </NextThemeProvider>
-            </MessageContext.Provider>
-          </UserDetailContext.Provider>
+          <ActionContext.Provider value={{ action, setAction }}>
+            <UserDetailContext.Provider value={{ userDetail, setUserDetail }}>
+              <MessageContext.Provider value={{ messages, setMessages }}>
+                <NextThemeProvider
+                  attribute="class"
+                  defaultTheme="system"
+                  enableSystem
+                  disableTransitionOnChange
+                >
+                  <SidebarProvider
+                    defaultOpen={false}
+                    className="flex flex-col "
+                  >
+                    <Header />
+                    <AppSideBar />
+                    {children}
+                  </SidebarProvider>
+                </NextThemeProvider>
+              </MessageContext.Provider>
+            </UserDetailContext.Provider>
+          </ActionContext.Provider>
         </PayPalScriptProvider>
-        </ActionContext.Provider>
       </GoogleOAuthProvider>
     </div>
   );

@@ -38,6 +38,7 @@ const AppSideBarFooter = () => {
     <div className=" pr-4 mb-10 w-full">
       {options.map((option, idx) => (
         <Button
+          key={idx}
           onClick={() => {
             onOptionClick(option);
             toggleSidebar();
