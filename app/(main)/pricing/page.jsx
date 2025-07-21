@@ -10,14 +10,14 @@ const page = () => {
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
   return (
     <div className="w-full min-h-[calc(100vh-176px)] flex flex-col mt-20  items-center gap-4">
-      <h2 className="font-bold text-5xl">Pricing</h2>
-      <p className="text-gray-500 max-w-xl text-center">
+      <h2 className="flex font-bold text-5xl">Pricing</h2>
+      <p className="flex text-gray-500 max-w-xl w-full text-center">
         {Lookup?.PRICING_DESC}
       </p>
 
       <div
         style={{ backgroundColor: Colors.BACKGROUND }}
-        className="max-w-5xl w-3xl min-w-xl flex justify-between border p-4 items-center rounded-2xl"
+        className="max-w-5xl w-full flex justify-between border p-4 items-center rounded-2xl"
       >
         <h2 className="flex gap-2">
           {!userDetail?.token ? (
